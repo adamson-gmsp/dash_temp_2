@@ -1,0 +1,179 @@
+---
+title: "GMSP Indicators"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(rmarkdown)
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+
+#data
+cca_df <- data.frame (region  = c("MSP","MSP","MSP","MSP","MSP",
+                                  "Chicago","Chicago","Chicago","Chicago","Chicago",
+                                  "Boston","Boston","Boston","Boston","Boston",
+                                  "Austin","Austin","Austin","Austin","Austin",
+                                  "Pittsburgh","Pittsburgh","Pittsburgh","Pittsburgh","Pittsburgh"
+),
+Legend = c("MSP","MSP","MSP","MSP","MSP",
+    "peer regions","peer regions","peer regions","peer regions","peer regions",
+    "peer regions","peer regions","peer regions","peer regions","peer regions",
+    "peer regions","peer regions","peer regions","peer regions","peer regions",
+    "peer regions","peer regions","peer regions","peer regions","peer regions"
+),
+year = c(2019,2020,2021,2022,2023,
+         2019,2020,2021,2022,2023,
+         2019,2020,2021,2022,2023,
+         2019,2020,2021,2022,2023,
+         2019,2020,2021,2022,2023),
+value = c(0.153,0.163,0.174,0.186,0.161,
+          0.25,0.26,0.27,0.28,0.26,
+          0.11,0.13,0.17,0.19,0.22,
+          0.17,0.16,0.12,0.13,0.15,
+          0.12,0.13,0.14,0.18,0.16)
+)
+
+
+
+```
+
+
+# Indicator #1 {data-navmenu="Economy"}
+
+
+Row {data-width=150}
+--------------------------------------
+### Indicator
+```{r}
+valueBox(value = "Annual Job Growth",icon = NA,caption = "Indicator - Economy",color = "lightblue")
+```
+
+### Indicator
+```{r}
+valueBox(value = 37.7,icon = NA,caption = "MSP Region, 2023",color = "lightblue")
+```
+
+### Peer Comparison
+```{r}
+valueBox(value = "3rd Highest",icon = "fa-arrow-up",caption = "out of 12 regions", color = "white")
+```
+
+### MSP Trends
+```{r}
+valueBox(value = "Worsening",icon = "fa-arrow-down",caption = "MSP trend from 2021", color = "white")
+```
+Row {data-width=350}
+-----------------------------------------------------------------------
+
+### Peer Comparison Over Time
+
+```{r}
+x = cca_df %>%
+  ggplot( aes(x=year, y=value, group=region, color = Legend)) +
+  geom_line(aes(size=Legend)) + 
+  scale_x_continuous(expand = c(0.04, 0), limits = c(2019, NA), 
+                     breaks = seq(2019, 2023, 1)) + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 0.35), 
+                     breaks = seq(0.05, 0.5, 0.05)) +
+  scale_color_manual(values=c(MSP='seagreen3', no='grey')) +
+  scale_size_manual(values = c(MSP=1.2, no=0.8))
+
+ggplotly(x, tooltip = c("year", "region", "value"))
+
+```
+
+### Peer Comparison - 2023
+
+```{r}
+
+```
+
+
+# Indicator #2 {data-navmenu="Economy"}
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+### Chart AA2
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+
+# Indicator #3 {data-navmenu="Talent"}
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+### Chart AA2
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+
+# Indicator #4 {data-navmenu="Talent"}
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+### Chart AA2
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
